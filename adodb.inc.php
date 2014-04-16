@@ -4284,7 +4284,15 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 			$dsna['user'] = isset($dsna['user']) ? rawurldecode($dsna['user']) : '';
 			$dsna['pass'] = isset($dsna['pass']) ? rawurldecode($dsna['pass']) : '';
 			$dsna['path'] = isset($dsna['path']) ? rawurldecode(substr($dsna['path'],1)) : ''; # strip off initial /
-
+			
+			/**
+			 * Sybase connection on custom port
+			 * 
+			 */
+			if ($dsna['scheme'] == 'sybase') {
+				$dsna['host'] = $dsna['host'].':'.$dsna['port'];
+			}
+			
 			if (isset($dsna['query'])) {
 				$opt1 = explode('&',$dsna['query']);
 				foreach($opt1 as $k => $v) {
